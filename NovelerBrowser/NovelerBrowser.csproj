@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InsertBookFromUriForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InsertBookFromUriForm.Designer.cs">
+      <DependentUpon>InsertBookFromUriForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +67,9 @@
     <Compile Include="WebBrowserForm.Designer.cs">
       <DependentUpon>WebBrowserForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="InsertBookFromUriForm.resx">
+      <DependentUpon>InsertBookFromUriForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
