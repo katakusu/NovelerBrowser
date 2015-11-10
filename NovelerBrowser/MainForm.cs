@@ -36,7 +36,7 @@ namespace NovelerBrowser
         //  [本棚]-[本棚に格納]をクリックすると呼び出される
         //      ツリービューを更新する
         //==========================================================================
-        private void UpdateTreeView() 
+        public void UpdateTreeView() 
         {
             BookshelfTreeView.Nodes["BookshelfTreeNode"].Nodes.Clear();
             string[] Subfolders = Directory.GetDirectories(WorkFolderPath, "*", SearchOption.TopDirectoryOnly);

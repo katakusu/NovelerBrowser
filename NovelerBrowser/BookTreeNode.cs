@@ -39,10 +39,10 @@ namespace NovelerBrowser
             this.Items.Add(updateToolStripMenuItem);
 
             ToolStripMenuItem deleteToolStripMenuItem = new ToolStripMenuItem("削除");
-
+            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            this.Items.Add(deleteToolStripMenuItem);
             //this.Click += BookTreeNodeContextMenuStrip_Click;
         }
-            
 
         void BookTreeNodeContextMenuStrip_Click(object sender, EventArgs e)
         {
@@ -52,6 +52,16 @@ namespace NovelerBrowser
         void UpdateToolStripMenuItem_Click(object sender, EventArgs e) 
         {
             MessageBox.Show("更新がクリックされた");
+        }
+
+        void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == MessageBox.Show("データフォルダごと削除されます。\r\nよろしいですか？",
+                "削除", MessageBoxButtons.YesNoCancel))
+            {
+                System.IO.Directory.Delete(node.FolderPath);
+                Form.UpdateTreeView();
+            }
         }
     }
 }
