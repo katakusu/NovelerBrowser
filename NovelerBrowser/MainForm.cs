@@ -112,7 +112,12 @@ namespace NovelerBrowser
                 Console.WriteLine("HTML Doc ç\ízäÆóπ");
 
                 var NovelTitleNode = htmlDoc.DocumentNode.SelectNodes(@"//p[@class=""novel_title""]");
-                var WriterNameNode = htmlDoc.DocumentNode.SelectNodes(@"//div[@class=""novel_writername""]//a");
+                var WriterNameNode = htmlDoc.DocumentNode.SelectSingleNode(@"//div[@class=""novel_writername""]//a");
+                if (WriterNameNode == null) 
+                {
+                    WriterNameNode = htmlDoc.DocumentNode.SelectSingleNode(@"//div[@class=""novel_writername""]");
+                    WriterNameNode.InnerText.Trim();
+                }
                 var NovelSynopsisNode = htmlDoc.DocumentNode.SelectNodes(@"//div[@id=""novel_ex""]");
                 var articles = htmlDoc.DocumentNode.SelectNodes(@"//dl[@class=""novel_sublist2""]")
                     .Select(a => new
@@ -123,7 +128,7 @@ namespace NovelerBrowser
                     });
 
                 string novelTitle = NovelTitleNode[0].InnerText.Trim();
-                string WriterName = WriterNameNode[0].InnerText.Trim();
+                string WriterName = WriterNameNode.InnerText.Trim().Replace("çÏé“ÅF", "");
                 string NovelSynopsis = NovelSynopsisNode[0].InnerText.Trim();
 
                 Console.WriteLine("éÊÇËèoÇµäÆóπ");
