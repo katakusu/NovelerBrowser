@@ -14,9 +14,8 @@ namespace NovelerBrowser.data
         private string title { set; get; }
         private string body { set; get; }
 
-        public Chapter(int id, DateTime date, string url) 
+        public Chapter(DateTime date, string url) 
         {
-            this.id = id;
             this.date = date;
             this.url = url;
         }

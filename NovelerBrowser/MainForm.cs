@@ -149,6 +149,7 @@ namespace NovelerBrowser
                     }
                 }
 
+                // äeèÕÇÃï€ë∂
                 foreach (var a in articles)
                 {
                     Regex TitleRegex = new Regex(@"(?<subtitle>.*)\n\n(?<date>\d\d\d\dîN\d{1,2}åé\d{1,2}ì˙)\n\n.*");
@@ -161,13 +162,18 @@ namespace NovelerBrowser
 
                     string novelTextName = novelTextNameNumberCollection[0].Groups["num"].ToString().Trim();
 
+                    string chapterTitle = TitleMatchCollection[0].ToString().Trim();
+                    DateTime dateTime = DateTime.Parse(TitleMatchCollection[2].ToString().Trim()
+                        , new System.Globalization.CultureInfo("ja-JP")
+                        , System.Globalization.DateTimeStyles.AssumeLocal);
+
                     if (!File.Exists(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt"))
                     {
                         using (StreamWriter sw = new StreamWriter(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt",
                             true, Encoding.GetEncoding("shift_jis")))
                         {
-                            sw.WriteLine(TitleMatchCollection[0].ToString().Trim());
-                            sw.WriteLine(TitleMatchCollection[2].ToString().Trim());
+                            sw.WriteLine(chapterTitle);
+                            sw.WriteLine(dateTime.Year+"/"+dateTime.Month+"/"+dateTime.Day);
                             sw.WriteLine(novelUrl + novelTextName + "/");
 
                             var bodyHtmlDoc = new HtmlAgilityPack.HtmlDocument();
