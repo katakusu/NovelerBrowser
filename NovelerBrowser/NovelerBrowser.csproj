@@ -37,6 +37,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,7 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookTreeNode.cs" />
+    <Compile Include="BookTreeNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GetHTML.cs" />
     <Compile Include="InsertBookFromUriForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +67,7 @@
     <Compile Include="PageTreeNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RankingTreeNode.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="WebBrowserForm.cs">
       <SubType>Form</SubType>

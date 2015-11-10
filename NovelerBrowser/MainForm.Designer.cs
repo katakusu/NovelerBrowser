@@ -35,6 +35,15 @@
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("テストノード", new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("月間ランキング");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("四半期ランキング");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("年間ランキング");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("ランキング", new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
+            treeNode7});
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Item1");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("item2");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ファイルFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.本棚BToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,11 +58,18 @@
             this.BookshelfTreeView = new System.Windows.Forms.TreeView();
             this.pickupTabPage = new System.Windows.Forms.TabPage();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.listView = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.BookmarkToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.ListViewHeightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -63,6 +79,10 @@
             this.TabControl.SuspendLayout();
             this.localbookTabPage.SuspendLayout();
             this.pickupTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -98,7 +118,7 @@
             // insertBookInBookshelfMenuItem
             // 
             this.insertBookInBookshelfMenuItem.Name = "insertBookInBookshelfMenuItem";
-            this.insertBookInBookshelfMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.insertBookInBookshelfMenuItem.Size = new System.Drawing.Size(136, 22);
             this.insertBookInBookshelfMenuItem.Text = "本棚に格納";
             this.insertBookInBookshelfMenuItem.Click += new System.EventHandler(this.InsertBookInBookshelfMenuItem_Click);
             // 
@@ -114,7 +134,8 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.browserButton,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.ListViewHeightToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 26);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(860, 25);
@@ -148,7 +169,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(860, 506);
             this.splitContainer1.SplitterDistance = 286;
             this.splitContainer1.TabIndex = 3;
@@ -188,13 +209,21 @@
             treeNode3.Text = "天啓";
             treeNode4.Name = "TestNode";
             treeNode4.Text = "テストノード";
+            treeNode5.Name = "MonthlyRankingTreeNode";
+            treeNode5.Text = "月間ランキング";
+            treeNode6.Name = "QuarterRankingTreeNode";
+            treeNode6.Text = "四半期ランキング";
+            treeNode7.Name = "YearlyRankingTreeNode";
+            treeNode7.Text = "年間ランキング";
+            treeNode8.Name = "RankingTreeNode";
+            treeNode8.Text = "ランキング";
             this.BookshelfTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
-            treeNode4});
+            treeNode4,
+            treeNode8});
             this.BookshelfTreeView.Size = new System.Drawing.Size(272, 474);
             this.BookshelfTreeView.TabIndex = 0;
             this.BookshelfTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.BookshelfTreeView_AfterSelect);
-            this.BookshelfTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.BookshelfTreeView_NodeMouseClick);
             // 
             // pickupTabPage
             // 
@@ -215,6 +244,63 @@
             this.treeView1.Size = new System.Drawing.Size(272, 474);
             this.treeView1.TabIndex = 0;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.listView);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer3.Size = new System.Drawing.Size(570, 506);
+            this.splitContainer3.SplitterDistance = 130;
+            this.splitContainer3.TabIndex = 2;
+            // 
+            // listView
+            // 
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.FullRowSelect = true;
+            this.listView.GridLines = true;
+            this.listView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1,
+            listViewItem2});
+            this.listView.Location = new System.Drawing.Point(0, 0);
+            this.listView.MultiSelect = false;
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(570, 130);
+            this.listView.TabIndex = 0;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 40;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "タイトル";
+            this.columnHeader2.Width = 300;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "作者";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "ジャンル";
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -229,7 +315,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.richTextBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(570, 506);
+            this.splitContainer2.Size = new System.Drawing.Size(570, 372);
             this.splitContainer2.SplitterDistance = 25;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -255,6 +341,15 @@
             this.BookmarkToolStripButton.Text = "栞";
             this.BookmarkToolStripButton.Click += new System.EventHandler(this.BookmarkToolStripButton_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
             // richTextBox1
             // 
             this.richTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -264,18 +359,21 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox1.Size = new System.Drawing.Size(570, 477);
+            this.richTextBox1.Size = new System.Drawing.Size(570, 343);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // toolStripButton1
+            // ListViewHeightToolStripButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.ListViewHeightToolStripButton.Checked = true;
+            this.ListViewHeightToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ListViewHeightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ListViewHeightToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ListViewHeightToolStripButton.Image")));
+            this.ListViewHeightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ListViewHeightToolStripButton.Name = "ListViewHeightToolStripButton";
+            this.ListViewHeightToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.ListViewHeightToolStripButton.Text = "toolStripButton2";
+            this.ListViewHeightToolStripButton.Click += new System.EventHandler(this.ListViewHeightToolStripButton_Click);
             // 
             // MainForm
             // 
@@ -289,6 +387,7 @@
             this.Name = "MainForm";
             this.Text = "mainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -300,6 +399,10 @@
             this.TabControl.ResumeLayout(false);
             this.localbookTabPage.ResumeLayout(false);
             this.pickupTabPage.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -333,6 +436,13 @@
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton BookmarkToolStripButton;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ToolStripButton ListViewHeightToolStripButton;
     }
 }
 
