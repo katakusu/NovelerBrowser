@@ -51,6 +51,8 @@
     <Compile Include="BookTreeNode.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="data\Book.cs" />
+    <Compile Include="data\Chapter.cs" />
     <Compile Include="GetHTML.cs" />
     <Compile Include="InsertBookFromUriForm.cs">
       <SubType>Form</SubType>

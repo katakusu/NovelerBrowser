@@ -71,9 +71,6 @@ namespace NovelerBrowser
             UpdateTreeView();
         }
 
-        
-
-
         private void BrowserButton_Click(object sender, EventArgs e)
         {
             using (WebBrowserForm webf = new WebBrowserForm(@"http://syosetu.com/")) 

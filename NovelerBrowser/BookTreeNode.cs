@@ -41,7 +41,6 @@ namespace NovelerBrowser
             ToolStripMenuItem deleteToolStripMenuItem = new ToolStripMenuItem("削除");
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             this.Items.Add(deleteToolStripMenuItem);
-            //this.Click += BookTreeNodeContextMenuStrip_Click;
         }
 
         void BookTreeNodeContextMenuStrip_Click(object sender, EventArgs e)
