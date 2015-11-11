@@ -11,6 +11,8 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Xml.Serialization;
+using NovelerBrowser.data;
 
 namespace NovelerBrowser
 {
@@ -150,6 +152,7 @@ namespace NovelerBrowser
                 }
 
                 // äeèÕÇÃï€ë∂
+                int chapterId = 1;
                 foreach (var a in articles)
                 {
                     Regex TitleRegex = new Regex(@"(?<subtitle>.*)\n\n(?<date>\d\d\d\dîN\d{1,2}åé\d{1,2}ì˙)\n\n.*");
@@ -167,6 +170,20 @@ namespace NovelerBrowser
                         , new System.Globalization.CultureInfo("ja-JP")
                         , System.Globalization.DateTimeStyles.AssumeLocal);
 
+                    // XML===
+                    if (!File.Exists(WorkFolderPath + novelTitle + "\\" + novelTextName + ".xml"))
+                    {
+                        Chapter chapter = new Chapter(chapterId, dateTime, novelUrl + novelTextName + "\\", chapterTitle);
+                        chapterId++;
+                        XmlSerializer xmls = new XmlSerializer(typeof(Chapter));
+                        using (StreamWriter sw = new StreamWriter(WorkFolderPath + novelTitle + "\\" + novelTextName + ".xml", false, Encoding.GetEncoding("shift_jis")))
+                        {
+                            xmls.Serialize(sw, chapter);
+                        }
+                        
+                    }//===
+
+                    // TXT===
                     if (!File.Exists(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt"))
                     {
                         using (StreamWriter sw = new StreamWriter(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt",
@@ -188,9 +205,8 @@ namespace NovelerBrowser
                             {
                                 sw.WriteLine(b.Text);
                             }
-
                         }
-                    }
+                    }//===
 
                 }
             }
