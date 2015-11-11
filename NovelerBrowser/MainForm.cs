@@ -33,11 +33,9 @@ namespace NovelerBrowser
 
         }
 
-        //==========================================================================
-        // InsertBookInBookshelfMenuItem_Click
-        //  [本棚]-[本棚に格納]をクリックすると呼び出される
-        //      ツリービューを更新する
-        //==========================================================================
+        /// <summary>
+        /// ファイルを再取得してツリービューの本棚のノードを再描画する
+        /// </summary>
         public void UpdateTreeView() 
         {
             BookshelfTreeView.Nodes["BookshelfTreeNode"].Nodes.Clear();
@@ -67,12 +65,11 @@ namespace NovelerBrowser
             }
         }
 
-
-        private void LoadBookshelf()
-        {
-            UpdateTreeView();
-        }
-
+        /// <summary>
+        /// [ブラウザ表示]ボタンをクリックしたとき呼び出される
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BrowserButton_Click(object sender, EventArgs e)
         {
             using (WebBrowserForm webf = new WebBrowserForm(@"http://syosetu.com/")) 
@@ -81,34 +78,21 @@ namespace NovelerBrowser
             }
         }
 
+
         private void TreeviewEnabledButton_Click(object sender, EventArgs e)
         {
 
         }
 
-
-        //==========================================================================
-        // GetBookDataFromWeb
-        //  指定されたurlから小説データを取得しファイルに保存する
-        //==========================================================================
-        private void GetBookDataFromWeb(String novelUrl) 
+        /// <summary>
+        /// URLから小説データを取得してファイルに保存する
+        /// </summary>
+        /// <param name="body">取得したテキスト</param>
+        /// <param name="novelUrl">取得するURL</param>
+        private void GetBookDataFromWeb(String body, String novelUrl) 
         {
             try
             {
-                string body = "";
-                using (WebClient wc = new WebClient())
-                {
-                    wc.Proxy = null;
-                    using (Stream st = wc.OpenRead(novelUrl))
-                    {
-                        Encoding enc = Encoding.GetEncoding("UTF-8");
-                        using (StreamReader sr = new StreamReader(st, enc))
-                        {
-                            body = sr.ReadToEnd();
-                        }
-                    }
-                }
-
                 var htmlDoc = new HtmlAgilityPack.HtmlDocument();
                 htmlDoc.LoadHtml(body);
                 Console.WriteLine("HTML Doc 構築完了");
@@ -170,7 +154,7 @@ namespace NovelerBrowser
                         , new System.Globalization.CultureInfo("ja-JP")
                         , System.Globalization.DateTimeStyles.AssumeLocal);
 
-                    // XML===
+                    // XMLで保存===
                     if (!File.Exists(WorkFolderPath + novelTitle + "\\" + novelTextName + ".xml"))
                     {
                         Chapter chapter = new Chapter(chapterId, dateTime, novelUrl + novelTextName + "\\", chapterTitle);
@@ -181,9 +165,9 @@ namespace NovelerBrowser
                             xmls.Serialize(sw, chapter);
                         }
                         
-                    }//===
+                    }//===XML END===
 
-                    // TXT===
+                    // TXTで保存===
                     if (!File.Exists(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt"))
                     {
                         using (StreamWriter sw = new StreamWriter(WorkFolderPath + novelTitle + "\\" + novelTextName + ".txt",
@@ -194,7 +178,8 @@ namespace NovelerBrowser
                             sw.WriteLine(novelUrl + novelTextName + "/");
 
                             var bodyHtmlDoc = new HtmlAgilityPack.HtmlDocument();
-                            bodyHtmlDoc.LoadHtml(GetHTML.GetHTMLBody(novelUrl + novelTextName + "\\"));
+                            var chapterString = GetHTML.GetHTMLBody(novelUrl + novelTextName + "\\").Result;
+                            bodyHtmlDoc.LoadHtml(chapterString);
                             var honbun = bodyHtmlDoc.DocumentNode.SelectNodes(@"//div[@id=""novel_honbun""]")
                                     .Select(b => new
                                     {
@@ -206,7 +191,7 @@ namespace NovelerBrowser
                                 sw.WriteLine(b.Text);
                             }
                         }
-                    }//===
+                    }//===TXT END===
 
                 }
             }
@@ -220,13 +205,23 @@ namespace NovelerBrowser
         // InsertBookInBookshelfMenuItem_Click
         //  [本棚]-[本棚に格納]をクリックすると呼び出される
         //==========================================================================
-        private void InsertBookInBookshelfMenuItem_Click(object sender, EventArgs e)
+        private async void InsertBookInBookshelfMenuItem_Click(object sender, EventArgs e)
         {
             using (InsertBookFromUriForm form = new InsertBookFromUriForm())
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    GetBookDataFromWeb(form.GetTextBoxText());
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.Proxy = null;
+                        using (Stream st = await wc.OpenReadTaskAsync(form.GetTextBoxText()))
+                        {
+                            using (StreamReader sr = new StreamReader(st, Encoding.GetEncoding("UTF-8")))
+                            {
+                                GetBookDataFromWeb(sr.ReadToEnd(), form.GetTextBoxText());
+                            }
+                        }
+                    }
                 }
             }
             UpdateTreeView();
@@ -236,7 +231,7 @@ namespace NovelerBrowser
         // UpdateBookData
         // 既に取得済みのデータを削除して、もう一度取得する
         //=========================================================================
-        public void UpdateBookData(string BookPath) 
+        public async void UpdateBookData(string BookPath) 
         {
             MessageBox.Show(BookPath);
             
@@ -272,8 +267,19 @@ namespace NovelerBrowser
             }
 
             // 再取得
-            GetBookDataFromWeb(bookUrl);
+            using (WebClient wc = new WebClient())
+            {
+                wc.Proxy = null;
+                using (Stream st = await wc.OpenReadTaskAsync(bookUrl))
+                {
+                    using (StreamReader sr = new StreamReader(st, Encoding.GetEncoding("UTF-8")))
+                    {
+                        GetBookDataFromWeb(sr.ReadToEnd(), bookUrl);
+                    }
+                }
+            }
 
+            // ツリーノード更新
             UpdateTreeView();
         }
 
@@ -386,7 +392,7 @@ namespace NovelerBrowser
         private void MainForm_Shown(object sender, EventArgs e)
         {
             // [本棚]にノードを追加する
-            LoadBookshelf();
+            UpdateTreeView();
 
             // [ランキング]にノードを追加する
             RankingTreeNode dailyRankingNode = new RankingTreeNode(this, "http://yomou.syosetu.com/rank/secondlist/type/daily_total/");

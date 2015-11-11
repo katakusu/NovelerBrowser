@@ -11,27 +11,28 @@ namespace NovelerBrowser
 {
     class GetHTML
     {
-        //=================================================================
-        // GetHTMLbody
-        // 引数で指定したuriのページの全文をUTF-8で取得する
-        //=================================================================
-        public static string GetHTMLBody(string url)
+        /// <summary>
+        /// URL先の全文をUTF-8で取得する
+        /// </summary>
+        /// <param name="url">取得先URL</param>
+        /// <returns></returns>
+        public async static Task<string> GetHTMLBody(string url)
         {
-            Cursor.Current = Cursors.WaitCursor;
-            string body = "";
+            //Cursor.Current = Cursors.WaitCursor;
+            string bodyTask = "";
             using (WebClient wc = new WebClient())
             {
-                using (Stream st = wc.OpenRead(url))
+                wc.Proxy = null;
+                using (Stream st = await wc.OpenReadTaskAsync(url))
                 {
-                    Encoding enc = Encoding.GetEncoding("UTF-8");
-                    using (StreamReader sr = new StreamReader(st, enc))
+                    using (StreamReader sr = new StreamReader(st, Encoding.GetEncoding("UTF-8")))
                     {
-                        body = sr.ReadToEnd();
+                        bodyTask = sr.ReadToEnd();
                     }
                 }
             }
-            Cursor.Current = Cursors.Default;
-            return body;
+            //Cursor.Current = Cursors.Default;
+            return bodyTask;
         }
     }
 }
