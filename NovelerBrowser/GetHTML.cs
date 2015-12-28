@@ -16,14 +16,14 @@ namespace NovelerBrowser
         /// </summary>
         /// <param name="url">取得先URL</param>
         /// <returns></returns>
-        public async static Task<string> GetHTMLBody(string url)
+        public static string GetHTMLBody(string url)
         {
             //Cursor.Current = Cursors.WaitCursor;
             string bodyTask = "";
             using (WebClient wc = new WebClient())
             {
                 wc.Proxy = null;
-                using (Stream st = await wc.OpenReadTaskAsync(url))
+                using (Stream st = wc.OpenRead(url))
                 {
                     using (StreamReader sr = new StreamReader(st, Encoding.GetEncoding("UTF-8")))
                     {

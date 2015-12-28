@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookListViewItem.cs" />
     <Compile Include="BookTreeNode.cs">
       <SubType>Component</SubType>
     </Compile>

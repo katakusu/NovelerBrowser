@@ -52,6 +52,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.browserButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ListViewHeightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TabControl = new System.Windows.Forms.TabControl();
             this.localbookTabPage = new System.Windows.Forms.TabPage();
@@ -69,7 +70,6 @@
             this.BookmarkToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.ListViewHeightToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -156,6 +156,18 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // ListViewHeightToolStripButton
+            // 
+            this.ListViewHeightToolStripButton.Checked = true;
+            this.ListViewHeightToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ListViewHeightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ListViewHeightToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ListViewHeightToolStripButton.Image")));
+            this.ListViewHeightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ListViewHeightToolStripButton.Name = "ListViewHeightToolStripButton";
+            this.ListViewHeightToolStripButton.Size = new System.Drawing.Size(23, 22);
+            this.ListViewHeightToolStripButton.Text = "toolStripButton2";
+            this.ListViewHeightToolStripButton.Click += new System.EventHandler(this.ListViewHeightToolStripButton_Click);
             // 
             // splitContainer1
             // 
@@ -282,6 +294,7 @@
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView_ItemSelectionChanged);
             // 
             // columnHeader1
             // 
@@ -362,18 +375,6 @@
             this.richTextBox1.Size = new System.Drawing.Size(570, 343);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
-            // 
-            // ListViewHeightToolStripButton
-            // 
-            this.ListViewHeightToolStripButton.Checked = true;
-            this.ListViewHeightToolStripButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ListViewHeightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ListViewHeightToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("ListViewHeightToolStripButton.Image")));
-            this.ListViewHeightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ListViewHeightToolStripButton.Name = "ListViewHeightToolStripButton";
-            this.ListViewHeightToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.ListViewHeightToolStripButton.Text = "toolStripButton2";
-            this.ListViewHeightToolStripButton.Click += new System.EventHandler(this.ListViewHeightToolStripButton_Click);
             // 
             // MainForm
             // 

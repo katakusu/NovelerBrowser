@@ -178,7 +178,7 @@ namespace NovelerBrowser
                             sw.WriteLine(novelUrl + novelTextName + "/");
 
                             var bodyHtmlDoc = new HtmlAgilityPack.HtmlDocument();
-                            var chapterString = GetHTML.GetHTMLBody(novelUrl + novelTextName + "\\").Result;
+                            var chapterString = GetHTML.GetHTMLBody(novelUrl + novelTextName + "\\");
                             bodyHtmlDoc.LoadHtml(chapterString);
                             var honbun = bodyHtmlDoc.DocumentNode.SelectNodes(@"//div[@id=""novel_honbun""]")
                                     .Select(b => new
@@ -283,10 +283,11 @@ namespace NovelerBrowser
             UpdateTreeView();
         }
 
-        //=========================================================================
-        // BookshelfTreeView_AfterSelect
-        // ツリービュー内のノードを選択したときに呼び出される
-        //=========================================================================
+        /// <summary>
+        /// ツリービュー内のノードを選択した時呼び出される
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void BookshelfTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             switch (e.Node.Level)
@@ -316,7 +317,7 @@ namespace NovelerBrowser
                         BookmarkToolStripButton.Enabled = false;
 
                     }
-                    else if (e.Node is RankingTreeNode) 
+                    else if (e.Node is RankingTreeNode) // ======ランキングノード======
                     {
                         Cursor.Current = Cursors.WaitCursor;
                         RankingTreeNode rankingNode = (RankingTreeNode)e.Node;
@@ -330,8 +331,7 @@ namespace NovelerBrowser
                             using (Stream st = await wc.OpenReadTaskAsync(rankingNode.url))
                             {
                                 Cursor.Current = Cursors.WaitCursor;
-                                Encoding enc = Encoding.GetEncoding("UTF-8");
-                                using (StreamReader sr = new StreamReader(st, enc))
+                                using (StreamReader sr = new StreamReader(st, Encoding.GetEncoding("UTF-8")))
                                 {
                                     body = sr.ReadToEnd();
                                 }
@@ -421,7 +421,10 @@ namespace NovelerBrowser
             item.SubItems.Add(title);
             item.SubItems.Add(author);
             item.SubItems.Add(genre);
+
+            listView.BeginUpdate();
             listView.Items.Add(item);
+            listView.EndUpdate();
         }
 
 
@@ -438,6 +441,11 @@ namespace NovelerBrowser
                 splitContainer3.SplitterDistance = this.SpllitterDistance3;
                 ListViewHeightToolStripButton.Checked = true;
             }
+        }
+
+        private void listView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            //e.Item
         }
     }
 }
